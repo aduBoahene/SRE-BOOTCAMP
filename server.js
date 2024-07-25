@@ -6,10 +6,10 @@ const logger = require('morgan');
 
 
 app.use(express.json());
-// app.use(logger('dev'))
+app.use(logger('dev'))
 
 
-app.post("/student", async (req, res) => {
+app.post("/api/v1/student", async (req, res) => {
     try {
         const { firstName, lastName, email, studentId, level, program } = req.body;
         const newStudent = await Student.create({ firstName, lastName, email, studentId, level, program })
@@ -30,7 +30,7 @@ app.post("/student", async (req, res) => {
 
 })
 
-app.get("/student", async (req, res) => {
+app.get("/api/v1/student", async (req, res) => {
     try {
         const students = await Student.findAll({})
         res.json({ data: students })
@@ -41,7 +41,7 @@ app.get("/student", async (req, res) => {
 })
 
 // Fetch endpoint to fetch a student by ID
-app.get('/student/:id', async (req, res) => {
+app.get('/api/v1/student/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -58,7 +58,7 @@ app.get('/student/:id', async (req, res) => {
 });
 
 // PUT endpoint to update a student by ID
-app.put('/student/:id', async (req, res) => {
+app.put('/api/v1/student/:id', async (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, email, studentId, level, program } = req.body; // Assuming these are the fields you want to update
 
@@ -84,7 +84,7 @@ app.put('/student/:id', async (req, res) => {
 });
 
 // Delete endpoint to Delete a student by ID
-app.delete('/student/:id', async (req, res) => {
+app.delete('/api/v1/student/:id', async (req, res) => {
     const { id } = req.params;
 
     try {

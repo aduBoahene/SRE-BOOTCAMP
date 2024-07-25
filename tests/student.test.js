@@ -20,7 +20,7 @@ describe('student API', () => {
 
     //GET ALL STUDENTS
     it('should show all students', async () => {
-        const res = await request(app).get('/student');
+        const res = await request(app).get('/api/v1/student');
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('data');
     });
@@ -28,12 +28,12 @@ describe('student API', () => {
     //GET 1 STUDENT
     it('should get a student by ID', async () => {
         const student = await request(app)
-            .post('/student')
+            .post('/api/v1/student')
             .send({
                 firstName: "Patrick", lastName: "Boahene", email: "patrick@gmail.com", studentId: "UG/9877/IU", level: "400", program: "Medicine"
             });
 
-        const response = await request(app).get(`/student/${student.body.data.id}`)
+        const response = await request(app).get(`/api/v1/student/${student.body.data.id}`)
         expect(response.status).toBe(200);
         expect(response.body.data.firstName).toBe('Patrick');
         expect(response.body.data.level).toBe("400");
@@ -42,13 +42,13 @@ describe('student API', () => {
     //UPDATE  STUDENT
     it('should update a student', async () => {
         const student = await request(app)
-            .post('/student')
+            .post('/api/v1/student')
             .send({
                 firstName: "Patrick", lastName: "Boahene", email: "patrick@gmail.com", studentId: "UG/9877/IU", level: "400", program: "Medicine"
             });
 
         const response = await request(app)
-            .put(`/student/${student.body.data.id}`)
+            .put(`/api/v1/student/${student.body.data.id}`)
             .send({ firstName: "John", lastName: "Doe" })
 
         expect(response.status).toBe(200);
@@ -59,7 +59,7 @@ describe('student API', () => {
     //CREATE NEW STUDENT
     it('should create a new student', async () => {
         const response = await request(app)
-            .post('/student')
+            .post('/api/v1/student')
             .send({
                 firstName: "Patrick", lastName: "Boahene", email: "patrick@gmail.com", studentId: "UG/9877/IU", level: "400", program: "Medicine"
             });
@@ -73,13 +73,13 @@ describe('student API', () => {
     //DELETE A  STUDENT
     it('should delete a student', async () => {
         const student = await request(app)
-            .post('/student')
+            .post('/api/v1/student')
             .send({
                 firstName: "Patrick", lastName: "Boahene", email: "patrick@gmail.com", studentId: "UG/9877/IU", level: "400", program: "Medicine"
             });
 
         const response = await request(app)
-            .delete(`/student/${student.body.data.id}`)
+            .delete(`/api/v1/student/${student.body.data.id}`)
 
         expect(response.status).toBe(200);
         expect(response.body.firstName).toBe(undefined);
