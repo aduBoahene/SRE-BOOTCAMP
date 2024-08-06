@@ -8,6 +8,10 @@ const logger = require('morgan');
 app.use(express.json());
 app.use(logger('dev'))
 
+app.get("/", (req,res)=>{
+    res.json({msg:"Welcome to Simple Express Api"})
+})
+
 
 app.post("/api/v1/student", async (req, res) => {
     try {
