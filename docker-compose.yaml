@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node_express_app
+    environment:
+      DEVELOPMENT_USERNAME: ${DEVELOPMENT_USERNAME}
+      DEVELOPMENT_PASSWORD: ${DEVELOPMENT_PASSWORD}
+      DEVELOPMENT_DATABASE: ${DEVELOPMENT_DATABASE}
+      DEVELOPMENT_HOST: postgres
+      DEVELOPMENT_DIALECT: postgres
+    depends_on:
+      - postgres
+    command: sh -c "npm run migrate && node app.js"
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres_db
+    environment:
+      POSTGRES_USER: ${DEVELOPMENT_USERNAME}
+      POSTGRES_PASSWORD: ${DEVELOPMENT_PASSWORD}
+      POSTGRES_DB: ${DEVELOPMENT_DATABASE}
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:

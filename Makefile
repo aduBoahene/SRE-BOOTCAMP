@@ -1,5 +1,7 @@
 IMAGE_NAME=simple-express-api
 TAG="1.4.0"
+CONTAINER_PORT=9000
+HOST_PORT=5000
 
 
 start-node-app:
@@ -25,4 +27,11 @@ run-container-dev:
 
 remove-image:
 	docker rmi "${IMAGE_NAME}:${TAG}"
+
+
+run-services:
+    docker-compose up
+
+stop-services:
+    docker-compose down
 
