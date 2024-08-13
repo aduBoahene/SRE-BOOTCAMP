@@ -31,6 +31,8 @@ jobs:
 
     - name: Build and push PostgreSQL image
       run: |
-        docker tag postgres:latest ${{ secrets.DOCKER_USERNAME }}/postgres
-        docker push ${{ secrets.DOCKER_USERNAME }}/postgres
+        docker pull postgres:latest
+        docker tag postgres:latest ${{ secrets.DOCKER_USERNAME }}/postgres:1.0.0
+        docker push ${{ secrets.DOCKER_USERNAME }}/postgres:1.0.0
+
     
