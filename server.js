@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(logger('dev'))
 
 app.get("/", (req,res)=>{
-    res.json({msg:"Welcome to Simple Express Api"})
+    res.json({msg:"Welcome to SRE bootcamp"})
 })
 
 
